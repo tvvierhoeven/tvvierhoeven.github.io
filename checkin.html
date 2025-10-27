@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check-in QR | T.V. Vierhoeven</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #FFED00;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background-color: #fff;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    header img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .title-block h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: #333;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    main {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .qr-container {
+      background-color: white;
+      display: inline-block;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    iframe {
+      border: none;
+      width: 552px;
+      height: 552px;
+      overflow: hidden;
+    }
+
+    .timestamp {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #444;
+    }
+
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="logo.png" alt="T.V. Vierhoeven Logo">
+      <div class="title-block">
+        <h1>T.V. Vierhoeven</h1>
+        <p>Check-in via QR-code</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="qr-container">
+      <iframe 
+        id="qr-frame" 
+        src="" 
+        scrolling="no"
+        sandbox=""
+      ></iframe>
+    </div>
+    <div class="timestamp">
+      Laatst vernieuwd op: <span id="time"></span>
+    </div>
+    <div class="button-group">
+      <button onclick="updateQR()">QR-code handmatig vernieuwen</button>
+      <button onclick="goFullscreen()">Toon fullscreen</button>
+    </div>
+  </main>
+
+  <script>
+    const qrFrame = document.getElementById("qr-frame");
+    const timeText = document.getElementById("time");
+
+    const checkinUrl = "https://pr01.allunited.nl/x/location_checkin_qrcode.php?id=UUpXbytRSUN5NzBMTDZ0NUIxTWt2enZ2TUlFa0FheHh5VHRVeXgyQXdnOUMydDU0NGo5bGpwR3JESmNqTm9INTc4V21hQ2tZVUhacTNHT0hXcWMxeFdHb0F5TXBLV0NTZm9vcHlRdXJoWUJ6M0tEL1k1amhOVVhDN3BKN2l5MlVzRUI2LzVsMllLNlhHcUFJTERObCtTOVI4bDhHdEQwMHZzd3pSWkxDWlhHeFg4ZEN6ODB5SVhmSUFXWFNCVzVIYWV2YzY4c3NSZ2dyWVhhU2NUTEc3QkRXWkZQdi9uY2I1SElTQWZPMEJRQT0=";
+
+    function updateQR() {
+      const timestamp = new Date().getTime();
+      const url = `${checkinUrl}&t=${timestamp}`;
+      qrFrame.src = url;
+      timeText.textContent = new Date().toLocaleString("nl-NL");
+    }
+
+    function goFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
+
+    updateQR(); // QR laden bij start
+    setInterval(updateQR, 300000); // Elke 5 minuten vernieuwen
+  </script>
+</body>
+</html>
