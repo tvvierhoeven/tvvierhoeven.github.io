@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="300"> <!-- Refresh elke 5 minuten -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check-in QR | TV Vierhoeven</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f8f8f8;
+      padding: 40px;
+    }
+
+    .logo {
+      max-width: 150px;
+      margin-bottom: 30px;
+    }
+
+    .qr-container {
+      background-color: white;
+      display: inline-block;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .timestamp {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/6YfMNKR.png" alt="TV Vierhoeven Logo" class="logo">
+
+  <h1>Check-in via QR-code</h1>
+
+  <div class="qr-container">
+    <img 
+      src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://pr01.allunited.nl/x/location_checkin_qrcode.php?id=UUpXbytRSUN5NzBMTDZ0NUIxTWt2enZ2TUlFa0FheHh5VHRVeXgyQXdnOUMydDU0NGo5bGpwR3JESmNqTm9INTc4V21hQ2tZVUhacTNHT0hXcWMxeFdHb0F5TXBLV0NTZm9vcHlRdXJoWUJ6M0tEL1k1amhOVVhDN3BKN2l5MlVzRUI2LzVsMllLNlhHcUFJTERObCtTOVI4bDhHdEQwMHZzd3pSWkxDWlhHeFg4ZEN6ODB5SVhmSUFXWFNCVzVIYWV2YzY4c3NSZ2dyWVhhU2NUTEc3QkRXWkZQdi9uY2I1SElTQWZPMEJRQT0=" 
+      alt="Check-in QR code"
+    >
+  </div>
+
+  <div class="timestamp">
+    Pagina vernieuwt automatisch elke 5 minuten.<br>
+    Laatst geladen op: <span id="time"></span>
+  </div>
+
+  <script>
+    const now = new Date();
+    document.getElementById("time").textContent = now.toLocaleString("nl-NL");
+  </script>
+</body>
+</html>
